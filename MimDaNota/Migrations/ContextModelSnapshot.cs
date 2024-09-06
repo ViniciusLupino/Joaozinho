@@ -59,6 +59,33 @@ namespace MimDaNota.Migrations
                     b.ToTable("tbFornecedor", (string)null);
                 });
 
+            modelBuilder.Entity("MimDaNota.Models.NotaFiscal", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("tbNotaFiscal", (string)null);
+                });
+
             modelBuilder.Entity("MimDaNota.Models.Produto", b =>
                 {
                     b.Property<Guid>("ProdutoId")
@@ -128,6 +155,23 @@ namespace MimDaNota.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("tbUser", (string)null);
+                });
+
+            modelBuilder.Entity("MimDaNota.Models.NotaFiscal", b =>
+                {
+                    b.HasOne("MimDaNota.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MimDaNota.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MimDaNota.Models.Produto", b =>

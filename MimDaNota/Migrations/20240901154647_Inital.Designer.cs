@@ -12,8 +12,8 @@ using MimDaNota.Data;
 namespace MimDaNota.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240823112525_Initial")]
-    partial class Initial
+    [Migration("20240901154647_Inital")]
+    partial class Inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,33 @@ namespace MimDaNota.Migrations
                     b.HasKey("FornecedorId");
 
                     b.ToTable("tbFornecedor", (string)null);
+                });
+
+            modelBuilder.Entity("MimDaNota.Models.NotaFiscal", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("tbNotaFiscal", (string)null);
                 });
 
             modelBuilder.Entity("MimDaNota.Models.Produto", b =>
@@ -131,6 +158,23 @@ namespace MimDaNota.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("tbUser", (string)null);
+                });
+
+            modelBuilder.Entity("MimDaNota.Models.NotaFiscal", b =>
+                {
+                    b.HasOne("MimDaNota.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MimDaNota.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MimDaNota.Models.Produto", b =>

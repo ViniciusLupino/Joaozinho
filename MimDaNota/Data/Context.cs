@@ -10,6 +10,7 @@ namespace MimDaNota.Data
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Produto> Produto { get; set; }
+        public DbSet<NotaFiscal> NotaFiscal { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,9 +19,8 @@ namespace MimDaNota.Data
             modelBuilder.Entity<Fornecedor>().ToTable("tbFornecedor");
             modelBuilder.Entity<Categoria>().ToTable("tbCategoria");
             modelBuilder.Entity<Produto>().ToTable("tbProduto");
-
+            modelBuilder.Entity<NotaFiscal>().ToTable("tbNotaFiscal");
         }
-
     }
 }
 

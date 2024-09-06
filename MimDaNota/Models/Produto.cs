@@ -10,11 +10,6 @@
 
         /*************************************************/
 
-        public Guid UserId { get; set; }
-        public User? User { get; set; }
-
-        /*************************************************/
-
         public Guid FornecedorId { get; set; }
         public Fornecedor? Fornecedor { get; set; }
 
@@ -24,5 +19,8 @@
         public Categoria? Categoria { get; set; }
 
         /*************************************************/
+
+        public Guid UserId { get; set; }
+        public User? User {  get; set; }
     }
 }

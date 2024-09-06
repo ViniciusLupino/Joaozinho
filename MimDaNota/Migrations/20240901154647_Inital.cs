@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MimDaNota.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,9 +62,9 @@ namespace MimDaNota.Migrations
                     ProdutoNome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProdutoPreco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProdutoEstoque = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FornecedorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,6 +89,42 @@ namespace MimDaNota.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "tbNotaFiscal",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    ProdutoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbNotaFiscal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tbNotaFiscal_tbProduto_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "tbProduto",
+                        principalColumn: "ProdutoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tbNotaFiscal_tbUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "tbUser",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbNotaFiscal_ProdutoId",
+                table: "tbNotaFiscal",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbNotaFiscal_UserId",
+                table: "tbNotaFiscal",
+                column: "UserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_tbProduto_CategoriaId",
                 table: "tbProduto",
@@ -108,6 +144,9 @@ namespace MimDaNota.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "tbNotaFiscal");
+
             migrationBuilder.DropTable(
                 name: "tbProduto");
 

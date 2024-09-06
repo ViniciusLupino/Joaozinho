@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MimDaNota")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc115e1630344417a33912f36fa1cd9427d75251")]
 [assembly: System.Reflection.AssemblyProductAttribute("MimDaNota")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MimDaNota")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
